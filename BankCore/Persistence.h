@@ -5,12 +5,11 @@
 #include <string>
 #include "User.h"
 
-namespace BankCore
-{
+// This is for saving and loading user accounts
 
+namespace BankCore {
     std::vector<User> loadUsers(const std::string &filename);
     void saveUsers(const std::vector<User> &users, const std::string &filename);
-
 }
 
 #endif

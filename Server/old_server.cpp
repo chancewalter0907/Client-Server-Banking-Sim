@@ -1,3 +1,4 @@
+#include <iomanip>
 #include <iostream>
 #include <thread>
 #include <vector>
@@ -6,10 +7,12 @@
 #include <mutex>
 #include <netinet/in.h>
 #include <unistd.h>
+#include <cstring>
+#include <algorithm>
 
-#include "BankCore/User.h"
-#include "BankCore/Persistence.h"
-#include "BankCore/Account.h"
+#include "../BankCore/User.h"
+#include "../BankCore/Persistence.h"
+#include "../BankCore/Account.h"
 
 using namespace BankCore;
 
@@ -68,6 +71,7 @@ void clientSession(int clientSocket)
             {
                 response << "Login failed.\n";
             }
+
         }
         else if (command == "CREATEUSER")
         {
@@ -212,6 +216,7 @@ int main()
         int clientSocket = accept(serverSocket, (sockaddr *)&client, &clientSize);
 
         std::thread t(clientSession, clientSocket);
+        saveUsers(users, DATA_FILE);
         t.detach();
     }
 
